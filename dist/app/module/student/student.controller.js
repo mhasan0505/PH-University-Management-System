@@ -11,45 +11,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StudentControllers = void 0;
 const student_service_1 = require("./student.service");
-const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { student: studentData } = req.body;
         const result = yield student_service_1.StudentServices.createStudentIntoDB(studentData);
         res.status(200).json({
             success: true,
-            message: 'Student is created succesfully',
+            message: "Student is created succesfully",
             data: result,
         });
     }
     catch (err) {
-        console.log(err);
+        next(err);
     }
 });
-const getAllStudents = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllStudents = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield student_service_1.StudentServices.getAllStudentsFromDB();
         res.status(200).json({
             success: true,
-            message: 'Students are retrieved succesfully',
+            message: "Students are retrieved succesfully",
             data: result,
         });
     }
     catch (err) {
-        console.log(err);
+        next(err);
     }
 });
-const getSingleStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSingleStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { studentId } = req.params;
         const result = yield student_service_1.StudentServices.getSingleStudentFromDB(studentId);
         res.status(200).json({
             success: true,
-            message: 'Student is retrieved succesfully',
+            message: "Student is retrieved succesfully",
             data: result,
         });
     }
     catch (err) {
-        console.log(err);
+        next(err);
     }
 });
 exports.StudentControllers = {

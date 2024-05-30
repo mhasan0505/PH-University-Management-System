@@ -19,19 +19,19 @@ const user_model_1 = require("./user.model");
 const createStudentIntoDB = (password, studentdata) => __awaiter(void 0, void 0, void 0, function* () {
     // create a user object
     const userData = {};
-    // if password is note given use default password
+    // if password is not given use default password
     userData.password = password || config_1.default.default_password;
     //set student role
     userData.role = "student";
     //   set manually ID
-    userData.id = "2030100001";
+    userData.id = "2030100002";
     //  create a user
     const newUser = yield user_model_1.User.create(userData);
     // create a student
     if (Object.keys(newUser).length) {
         // set id , _id as user
         studentdata.id = newUser.id;
-        studentdata.user = newUser._id; // reference ID
+        studentdata.user = newUser._id; // refference ID
         const newStudent = yield student_model_1.Student.create(studentdata);
         return newStudent;
     }

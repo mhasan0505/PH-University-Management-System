@@ -8,7 +8,7 @@ const createStudentIntoDB = async (password: string, studentdata: TStudent) => {
   // create a user object
   const userData: Partial<TUser> = {};
 
-  // if password is note given use default password
+  // if password is not given use default password
   userData.password = password || (config.default_password as string);
 
   //set student role
@@ -16,7 +16,7 @@ const createStudentIntoDB = async (password: string, studentdata: TStudent) => {
   userData.role = "student";
 
   //   set manually ID
-  userData.id = "2030100001";
+  userData.id = "2030100002";
 
   //  create a user
   const newUser = await User.create(userData);
@@ -26,7 +26,7 @@ const createStudentIntoDB = async (password: string, studentdata: TStudent) => {
     // set id , _id as user
 
     studentdata.id = newUser.id;
-    studentdata.user = newUser._id; // reference ID
+    studentdata.user = newUser._id; // refference ID
 
     const newStudent = await Student.create(studentdata);
     return newStudent;
