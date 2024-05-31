@@ -1,21 +1,21 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
-import { UserRoutes } from "./app/module/user/user.route";
 import globalErrorHandler from "./app/midlewares/globalErrorHandler";
-
-// import globalErrorHandler from "./app/middlewares/globalErrorhandler";
-// import notFound from "./app/middlewares/notFound";
-// import router from "./app/routes";
+import NotFound from "./app/midlewares/NotFound";
+import router from "./app/routes";
 
 const app: Application = express();
 
 //parsers
-app.use(express);
+app.use(express.json());
 app.use(cors());
 
 // application routes
-// app.use("/api/v1/student", StudentRoutes);
-app.use("/api/v1/users", UserRoutes);
+app.use("/api/v1", router);
 
 const test = (req: Request, res: Response) => {
   const a = 10;
@@ -24,7 +24,9 @@ const test = (req: Request, res: Response) => {
 
 app.get("/", test);
 
-//errorHandler
 app.use(globalErrorHandler);
+
+//Not Found
+app.use(NotFound);
 
 export default app;
