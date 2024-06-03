@@ -24,7 +24,7 @@ const createStudentIntoDB = (password, studentdata) => __awaiter(void 0, void 0,
     //set student role
     userData.role = "student";
     //   set manually ID
-    userData.id = "2030100002";
+    userData.id = "2030100005";
     //  create a user
     const newUser = yield user_model_1.User.create(userData);
     // create a student

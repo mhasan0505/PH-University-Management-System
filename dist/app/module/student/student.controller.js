@@ -14,37 +14,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StudentControllers = void 0;
 const http_status_1 = __importDefault(require("http-status"));
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const student_service_1 = require("./student.service");
-const createStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { student: studentData } = req.body;
-        const result = yield student_service_1.StudentServices.createStudentIntoDB(studentData);
-        (0, sendResponse_1.default)(res, {
-            statusCode: http_status_1.default.OK,
-            success: true,
-            message: "Student is created succesfully",
-            data: result,
-        });
-    }
-    catch (err) {
-        next(err);
-    }
-});
-const getAllStudents = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const result = yield student_service_1.StudentServices.getAllStudentsFromDB();
-        (0, sendResponse_1.default)(res, {
-            statusCode: http_status_1.default.OK,
-            success: true,
-            message: "Student is retrived succesfully",
-            data: result,
-        });
-    }
-    catch (err) {
-        next(err);
-    }
-});
+const getAllStudents = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_service_1.StudentServices.getAllStudentsFromDB();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Student is retrived succesfully",
+        data: result,
+    });
+}));
 const getSingleStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { studentId } = req.params;
@@ -61,7 +42,6 @@ const getSingleStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.StudentControllers = {
-    createStudent,
     getAllStudents,
     getSingleStudent,
 };
